@@ -1,0 +1,22 @@
+.AppContainer{
+    
+}
+
+.TitleContainer{
+    text-align: center;
+}
+
+.InputContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.PinnedSearchHeaderContainer{
+    text-align: center;
+}
+
+.SearchDisplayContainer{
+    text-align: center;
+}
