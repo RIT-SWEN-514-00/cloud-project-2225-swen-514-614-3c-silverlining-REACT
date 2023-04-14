@@ -13,7 +13,17 @@ class SearchDashboard extends Component{
 
     render(){
         return(
-            <div>hi</div>
+            <div style={DashboardContainerStyle}>
+                <SearchCard search={this.props.location.state?.search}/>
+                <div style={CommentContainerStyle}>
+                    <p>Positive Comment: </p>
+                    <p>{this.props.location.state?.search.comments.positive}</p>
+                </div>
+                <div style={CommentContainerStyle}>
+                    <p>Negative Comment: </p>
+                    <p>{this.props.location.state?.search.comments.negative}</p>
+                </div>
+            </div>
         )
     }
 }
@@ -25,3 +35,16 @@ function SearchDashboardWithNavigation(props) {
 }
 
 export default SearchDashboardWithNavigation;
+
+const DashboardContainerStyle = {
+    display: 'flex'
+}
+
+const HeaderContainerStyle = {
+
+}
+
+const CommentContainerStyle = {
+    border: '2px solid black',
+    borderRadius: '10px',
+}

@@ -28,6 +28,7 @@ class SearchCard extends Component{
       }
 
     handleNavigateToDashboard(){
+        debugger;
         this.props.navigate("/searchDashboard", 
         {state: {
             search: this.props.search}});
