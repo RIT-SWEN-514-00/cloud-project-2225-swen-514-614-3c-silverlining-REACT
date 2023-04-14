@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import SearchCard  from './SearchCard';
 import './App.css'
 import axios from 'axios';
+import ApprovalPieGraph from './ApprovalPieGraph';
 
-const BASE_URL = process.env.API_URL;
+const BASE_URL = process.env.REACT_APP_API_URL;
 const testSearches = [];
 
 class App extends Component{
@@ -13,7 +14,7 @@ class App extends Component{
     this.state = {
       pinnedSearches: testSearches,
       keyword: '',
-      subreddit: '',
+      subreddit: 'all',
       pinSearch: false,
       subdredditSearch: false,
       currentSearch: undefined
@@ -32,14 +33,13 @@ class App extends Component{
   }
 
   async handleSearch(){
-    // GET to check if search already exists?
-    // If so GET search
-    // If not GET 7 searches and plot the 7 data points
     console.log(this.state.keyword);
     console.log(this.state.subreddit);
     try {
-      let response = await axios.get(BASE_URL, {keyword: this.state.keyword, subreddit: this.state.subreddit});
-      let search = response.data;
+      let response = await axios.get(BASE_URL, {params: {keyword: this.state.keyword, subreddit: this.state.subreddit}});
+      //debugger;
+      let search = JSON.parse(response.data.body);
+      this.setState({currentSearch: search});
       console.log(JSON.stringify(search));
     }
     catch (err) {
@@ -52,7 +52,7 @@ class App extends Component{
   }
 
   handleSubredditInput(event){
-    this.setState({subdreddit: event.target.value});
+    this.setState({subreddit: event.target.value});
   }
 
   handleSearchTypeSelect(event){
@@ -95,9 +95,9 @@ class App extends Component{
               : <div></div>}
           </div>
         </div>
-        <div className='SearchDisplayContainer'>
+        <div className='SearchDisplayContainer' style={searchDisplayContainerStyle}>
         {this.state.currentSearch ? 
-              <SearchCard search={this.state.currentSearch}/>
+              <SearchCard keyword={this.state.currentSearch?.keyword} subreddit={this.state.currentSearch?.subreddit} approvalRating={this.state.currentSearch?.approval_rating}/>
               : <div></div>}
         </div>
         <div className='PinnedSearchHeaderContainer'>
@@ -116,3 +116,9 @@ class App extends Component{
 }
 
 export default App;
+
+const searchDisplayContainerStyle = {
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center'
+}
