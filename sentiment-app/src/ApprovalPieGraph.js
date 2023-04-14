@@ -59,7 +59,7 @@ export default class ApprovalPieGraph extends PureComponent {
             <Cell key={`cell-${index}`} fill={entry.color} />
           ))}
         </Pie>
-        {needle(this.props.approvalRating, data, cx, cy, iR, oR, '#d0d000')}
+        {needle(this.props.approval_rating, data, cx, cy, iR, oR, '#d0d000')}
       </PieChart>
     );
   }

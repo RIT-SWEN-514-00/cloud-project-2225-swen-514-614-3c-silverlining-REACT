@@ -1,19 +1,42 @@
 import React, { Component } from 'react';
 import ApprovalPieGraph from './ApprovalPieGraph';
+import axios from 'axios';
 //import {useNavigate, useLocation} from "react-router-dom";
 
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 export default class SearchCard extends Component{
+    constructor(props){
+        super(props);
+        this.handlePinSearch = this.handlePinSearch.bind(this);
+    }
+
+    async handlePinSearch(){
+        console.log(this.props.search.keyword);
+        console.log(this.props.search.subreddit);
+        try {
+          // errors out for now
+          //let response = await axios.post(BASE_URL + "/pinned", {params: {keyword: this.props.keyword, reddit: this.props.subreddit}}); //TODO subreddit param misspelled in IAC
+          //debugger;
+          this.props.addPinnedSearchCallback(this.props.search);
+        }
+        catch (err) {
+          console.log(err);
+        }
+      }
+    
     render(){
         return(
             <div style={CardContainerStyle}>
-                <button>Pin Search</button>
-                <div>{"\"" + this.props.keyword + "\""}</div>
-                <div>{"r/" + this.props.subreddit}</div>
+                { this.props.addPinnedSearchCallback ? 
+                <button onClick={() => {this.handlePinSearch(this.props.search)}}>Pin Search</button>
+                : <div/>}
+                <div>{"\"" + this.props.search.keyword + "\""}</div>
+                <div>{"r/" + this.props.search.subreddit}</div>
                 <div>
-                    <ApprovalPieGraph approvalRating={this.props.approvalRating}/>
+                    <ApprovalPieGraph approval_rating={this.props.search.approval_rating}/>
                 </div>
-                <div>{"Approval Rating: " + this.props.approvalRating}</div>
+                <div>{"Approval Rating: " + this.props.search.approval_rating}</div>
                 <button>Show More</button>
             </div>
         )

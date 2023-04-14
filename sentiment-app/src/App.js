@@ -5,14 +5,13 @@ import axios from 'axios';
 import ApprovalPieGraph from './ApprovalPieGraph';
 
 const BASE_URL = process.env.REACT_APP_API_URL;
-const testSearches = [];
 
 class App extends Component{
   
   constructor(props){
     super(props);
     this.state = {
-      pinnedSearches: testSearches,
+      pinnedSearches: [],
       keyword: '',
       subreddit: 'all',
       pinSearch: false,
@@ -21,22 +20,22 @@ class App extends Component{
     };
 
     this.handleSearch = this.handleSearch.bind(this);
-    this.handlePinSearch = this.handlePinSearch.bind(this);
     this.handleSearchTypeSelect = this.handleSearchTypeSelect.bind(this);
     this.handleKeywordInput = this.handleKeywordInput.bind(this);
     this.handleSubredditInput = this.handleSubredditInput.bind(this);
+    this.addPinnedSearchCallback = this.addPinnedSearchCallback.bind(this);
   }
 
   async componentDidMount(){
     // GET pinned searches from database and set state
-
+    
   }
 
   async handleSearch(){
     console.log(this.state.keyword);
     console.log(this.state.subreddit);
     try {
-      let response = await axios.get(BASE_URL, {params: {keyword: this.state.keyword, subreddit: this.state.subreddit}});
+      let response = await axios.get(BASE_URL + "/v1", {params: {keyword: this.state.keyword, subreddit: this.state.subreddit}}); //TODO change v1 to base URL instead of only get search
       //debugger;
       let search = JSON.parse(response.data.body);
       this.setState({currentSearch: search});
@@ -45,6 +44,10 @@ class App extends Component{
     catch (err) {
       console.log(err);
     }
+  }
+
+  async getPinnedSearches(){
+
   }
 
   handleKeywordInput(event){
@@ -67,6 +70,13 @@ class App extends Component{
   handlePinSearch(event){
     this.setState({pinSearch: event.target.checked});
     console.log(event.target.checked);
+  }
+
+  addPinnedSearchCallback(search){
+    let updatedPins = this.state.pinnedSearches;
+    updatedPins.push(search);
+    this.setState({pinnedSearches: updatedPins});
+    debugger;
   }
 
   render(){
@@ -97,16 +107,16 @@ class App extends Component{
         </div>
         <div className='SearchDisplayContainer' style={searchDisplayContainerStyle}>
         {this.state.currentSearch ? 
-              <SearchCard keyword={this.state.currentSearch?.keyword} subreddit={this.state.currentSearch?.subreddit} approvalRating={this.state.currentSearch?.approval_rating}/>
+              <SearchCard search={this.state.currentSearch} addPinnedSearchCallback={this.addPinnedSearchCallback}/>
               : <div></div>}
         </div>
         <div className='PinnedSearchHeaderContainer'>
               <h3 className='PinnedSearchHeader'>Pinned Searches</h3>
         </div>
         <div className='SearchCardContainer'>
-          {this.state.pinnedSearches.map((search, index) => {
-            return <SearchCard key={index}/>
-          })}
+          {this.state.pinnedSearches.map((search, index) => (
+            <SearchCard key={index} search={search}/>
+          ))}
         </div>
       </div>
 
