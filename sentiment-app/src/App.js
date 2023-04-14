@@ -60,7 +60,7 @@ class App extends Component{
       this.setState({subdredditSearch: true});
     }
     else{
-      this.setState({subdredditSearch: false});
+      this.setState({subdredditSearch: false, subreddit: 'all'});
     }
   }
 
