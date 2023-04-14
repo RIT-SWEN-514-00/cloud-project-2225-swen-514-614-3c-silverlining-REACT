@@ -67,11 +67,6 @@ class App extends Component{
     }
   }
 
-  handlePinSearch(event){
-    this.setState({pinSearch: event.target.checked});
-    console.log(event.target.checked);
-  }
-
   addPinnedSearchCallback(search){
     let updatedPins = this.state.pinnedSearches;
     updatedPins.push(search);
@@ -94,10 +89,6 @@ class App extends Component{
             </select>
             <input type='text' value={this.state.searchText} onChange={this.handleKeywordInput}/>
             <button onClick={this.handleSearch}>Search</button>
-            <label>
-              <input type='checkbox' checked={this.pinSearch} onChange={this.handlePinSearch}/>
-              Pin Search
-            </label>
           </div>
           <div>
             {this.state.subdredditSearch ? 
