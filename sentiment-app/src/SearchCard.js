@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import ApprovalPieGraph from './ApprovalPieGraph';
 import axios from 'axios';
-//import {useNavigate, useLocation} from "react-router-dom";
+import { Route, useNavigate, useLocation, Link } from "react-router-dom";
 
 const BASE_URL = process.env.REACT_APP_API_URL;
 
-export default class SearchCard extends Component{
+class SearchCard extends Component{
     constructor(props){
         super(props);
+
         this.handlePinSearch = this.handlePinSearch.bind(this);
+        this.handleNavigateToDashboard = this.handleNavigateToDashboard.bind(this);
     }
 
     async handlePinSearch(){
@@ -24,6 +26,12 @@ export default class SearchCard extends Component{
           console.log(err);
         }
       }
+
+    handleNavigateToDashboard(){
+        this.props.navigate("/searchDashboard", 
+        {state: {
+            search: this.props.search}});
+    }
     
     render(){
         return(
@@ -37,20 +45,20 @@ export default class SearchCard extends Component{
                     <ApprovalPieGraph approval_rating={this.props.search.approval_rating}/>
                 </div>
                 <div>{"Approval Rating: " + this.props.search.approval_rating}</div>
-                <button>Show More</button>
+                <button onClick={this.handleNavigateToDashboard}>Show More</button>
             </div>
         )
     }
 }
 
 
-// function SearchCardWithNavigation(props) {
-//     let navigate = useNavigate();
-//     let location = useLocation();
-//     return <SearchCard {...props} navigate={navigate} location={location}/>
-// }
+function SearchCardWithNavigation(props) {
+    let navigate = useNavigate();
+    let location = useLocation();
+    return <SearchCard {...props} navigate={navigate} location={location}/>
+}
 
-//export default SearchCardWithNavigation
+export default SearchCardWithNavigation;
 
 const CardContainerStyle = {
     border: '2px solid black',

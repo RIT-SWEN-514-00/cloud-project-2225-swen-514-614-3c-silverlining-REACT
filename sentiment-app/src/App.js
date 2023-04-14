@@ -16,7 +16,8 @@ class App extends Component{
       subreddit: 'all',
       pinSearch: false,
       subdredditSearch: false,
-      currentSearch: undefined
+      currentSearch: undefined,
+      loading: false
     };
 
     this.handleSearch = this.handleSearch.bind(this);
@@ -35,10 +36,11 @@ class App extends Component{
     console.log(this.state.keyword);
     console.log(this.state.subreddit);
     try {
+      this.setState({loading: true});
       let response = await axios.get(BASE_URL + "/v1", {params: {keyword: this.state.keyword, subreddit: this.state.subreddit}}); //TODO change v1 to base URL instead of only get search
       //debugger;
       let search = JSON.parse(response.data.body);
-      this.setState({currentSearch: search});
+      this.setState({currentSearch: search, loading: false});
       console.log(JSON.stringify(search));
     }
     catch (err) {
@@ -97,6 +99,9 @@ class App extends Component{
           </div>
         </div>
         <div className='SearchDisplayContainer' style={searchDisplayContainerStyle}>
+        {this.state.loading ? 
+              <div>Loading...</div>
+              : <div></div>}
         {this.state.currentSearch ? 
               <SearchCard search={this.state.currentSearch} addPinnedSearchCallback={this.addPinnedSearchCallback}/>
               : <div></div>}
