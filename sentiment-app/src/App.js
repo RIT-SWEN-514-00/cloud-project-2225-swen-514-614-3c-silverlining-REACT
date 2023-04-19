@@ -29,7 +29,15 @@ class App extends Component {
 
   async componentDidMount() {
     // GET pinned searches from database and set state
-
+    try{
+      let response = await axios.get(BASE_URL + "/pinned");
+      console.log(response);
+      let pins = JSON.parse(response.data.body);
+      this.setState({pinnedSearches: pins});
+    }
+    catch(err){
+      console.log(err);
+    }
   }
 
   async handleSearch() {
