@@ -18,7 +18,7 @@ class SearchCard extends Component{
         console.log(this.props.search.subreddit);
         try {
           // errors out for now
-          let response = await axios.post(BASE_URL + "/pinned", {params: {keyword: this.props.search.keyword, reddit: this.props.search.subreddit}}); //TODO subreddit param misspelled in IAC
+          let response = await axios.post(BASE_URL + "/pinned", {}, {params: {keyword:this.props.search.keyword, reddit:this.props.search.subreddit}}); //TODO subreddit param misspelled in IAC
           console.log(JSON.stringify(response));
           //debugger;
           this.props.addPinnedSearchCallback(this.props.search);
