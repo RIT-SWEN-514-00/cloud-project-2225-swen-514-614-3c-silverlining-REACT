@@ -2,10 +2,6 @@
     
 }
 
-.TitleContainer{
-    text-align: center;
-}
-
 .InputContainer{
     display: flex;
     flex-direction: column;

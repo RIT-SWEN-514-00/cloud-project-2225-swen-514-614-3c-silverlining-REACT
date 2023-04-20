@@ -42,7 +42,7 @@ export default class ApprovalPieGraph extends PureComponent {
   render() {
     const { approvalRating } = this.props;
     return (
-      <PieChart width={400} height={500}>
+      <PieChart width={300} height={250}>
         <Pie
           dataKey="value"
           startAngle={180}
@@ -59,7 +59,7 @@ export default class ApprovalPieGraph extends PureComponent {
             <Cell key={`cell-${index}`} fill={entry.color} />
           ))}
         </Pie>
-        {needle(this.props.approval_rating, data, cx, cy, iR, oR, '#d0d000')}
+        {needle(this.props.approval_rating, data, cx, cy, iR, oR, 'var(--gray)')}
       </PieChart>
     );
   }

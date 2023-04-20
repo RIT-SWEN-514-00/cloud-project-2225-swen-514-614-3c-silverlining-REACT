@@ -18,8 +18,8 @@ class SearchCard extends Component{
         console.log(this.props.search.subreddit);
         try {
           // errors out for now
-          //let response = await axios.post(BASE_URL + "/pinned", {params: {keyword: this.props.keyword, reddit: this.props.subreddit}}); //TODO subreddit param misspelled in IAC
-          //debugger;
+          let response = await axios.post(BASE_URL + "/pinned", {params: {keyword: this.props.keyword, reddit: this.props.subreddit}}); //TODO subreddit param misspelled in IAC
+          debugger;
           this.props.addPinnedSearchCallback(this.props.search);
         }
         catch (err) {
@@ -40,9 +40,9 @@ class SearchCard extends Component{
                 { this.props.addPinnedSearchCallback ? 
                 <button onClick={() => {this.handlePinSearch(this.props.search)}}>Pin Search</button>
                 : <div/>}
-                <div>{"\"" + this.props.search.keyword + "\""}</div>
+                <div style={KeyWordTextStyle}>{"\"" + this.props.search.keyword + "\""}</div>
                 <div>{"r/" + this.props.search.subreddit}</div>
-                <div>
+                <div style={GraphContainerStyle}>
                     <ApprovalPieGraph approval_rating={this.props.search.approval_rating}/>
                 </div>
                 <div>{"Approval Rating: " + this.props.search.approval_rating}</div>
@@ -67,12 +67,18 @@ const CardContainerStyle = {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignContent: 'center',
-    margin: '30px'
+    alignItems: 'center'
 }
 
-const KeyWordStyle = {
-    display: 'block'
+const GraphContainerStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+}
+
+const KeyWordTextStyle = {
+    fontSize: '20px'
 }
 
 const SubredditStyle = {
