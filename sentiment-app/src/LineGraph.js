@@ -97,7 +97,7 @@ export default class LineGraph extends PureComponent {
       >
         
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="date" />
+        <XAxis dataKey="formatted_date" />
         <YAxis type="number" domain={[0, 100]}/>
         <Tooltip />
         <Legend />

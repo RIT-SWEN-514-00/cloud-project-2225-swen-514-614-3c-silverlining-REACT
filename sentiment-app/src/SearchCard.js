@@ -58,7 +58,8 @@ class SearchCard extends Component{
                     <ApprovalPieGraph approval_rating={this.props.search.approval_rating}/>
                 </div>
                 <div className='mt-2'>{"Approval Rating: " + this.props.search.approval_rating.toFixed(2)}%</div>
-                <button type="button" className="btn btn-dark m-2" onClick={this.handleNavigateToDashboard}>Show More</button>
+                {this.props.hideShowMore ? <div></div> : <button type="button" className="btn btn-dark m-2" onClick={this.handleNavigateToDashboard}>Show More</button>}
+                
                 
             </div>
         )
