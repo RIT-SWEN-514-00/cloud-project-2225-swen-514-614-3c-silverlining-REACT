@@ -27,8 +27,10 @@ class SearchDashboard extends Component {
         },
       });
       let results = JSON.parse(response.data.body);
-      console.log(results);
-      this.setState({ results: results });
+      let sorted_results = results.sort(function (a, b) {
+        return a["date"].localeCompare(b["date"]);
+      });
+      this.setState({ results: sorted_results });
     } catch (err) {
       console.log(err);
     }
@@ -39,22 +41,39 @@ class SearchDashboard extends Component {
       <div>
         <div className="row m-3 mx-4 mt-4 px-5 py-4">
           <div className="col-lg-3">
+            <h4 className="text-center">Approval Rating Today</h4>
             <SearchCard search={this.props.location.state?.search} />
           </div>
-
+          <div className="col">
+            <h4 className="text-center">Sentiment over last week</h4>
+            <LineGraph data={this.state.results} />
+          </div>
+        </div>
+        <div className="row m-3 mx-4 mt-4 px-5 py-4">
           <div className="col">
             <p>Positive Comments: </p>
-            {this.state.results.map((data, index) => (
-              <p>{data.comments.positive.substring(0,100)}</p>
+            {this.state.results.map((data) => (
+              <p>
+                {data.date}<br/>{data.comments.positive}
+              </p>
             ))}
           </div>
           <div className="col">
-            <p>Negative Comment: </p>
-            <p>{this.props.location.state?.search.comments.negative}</p>
+            <p>Negative Comments: </p>
+            {this.state.results.map((data) => (
+              <p>
+                {data.date} <br/> {data.comments.negative}
+              </p>
+            ))}
           </div>
-        </div>
-        <div  className="row m-3 mx-4 mt-4 px-5 py-4">
-            <LineGraph data={this.state.results}/>
+          <div className="col">
+            <p>Mixed Comments: </p>
+            {this.state.results.map((data) => (
+              <p>
+                {data.date} <br/> {data.comments.mixed}
+              </p>
+            ))}
+          </div>
         </div>
       </div>
     );

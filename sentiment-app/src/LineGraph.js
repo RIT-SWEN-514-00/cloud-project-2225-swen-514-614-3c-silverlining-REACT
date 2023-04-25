@@ -81,11 +81,12 @@ const CustomizedDot = (props) => {
 };
 
 export default class LineGraph extends PureComponent {
+  
   render() {
     return (
       <LineChart
         width={1000}
-        height={500}
+        height={400}
         data={this.props.data}
         margin={{
           top: 5,
@@ -97,13 +98,14 @@ export default class LineGraph extends PureComponent {
         
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="date" />
-        <YAxis />
+        <YAxis type="number" domain={[0, 100]}/>
         <Tooltip />
         <Legend />
         <Line
           type="monotone"
           dataKey="approval_rating"
-          stroke="#8884d8"
+          stroke="#FF4500"
+          isAnimationActive={false}
           dot={<CustomizedDot />}
         />
       </LineChart>
