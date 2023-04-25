@@ -1,22 +1,14 @@
-.AppContainer{
-    
+.btn-primary{
+    background-color: #FF4500 ;
+    border-color: #FF4500;
 }
 
-.TitleContainer{
-    text-align: center;
+.btn-outline-primary{
+    border-color: #FF4500;
+    color: #FF4500;
 }
 
-.InputContainer{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.PinnedSearchHeaderContainer{
-    text-align: center;
-}
-
-.SearchDisplayContainer{
-    text-align: center;
+.btn-outline-primary:hover{
+    border-color: #FF4500;
+    background-color: #FF4500 ;
 }

@@ -42,7 +42,7 @@ export default class ApprovalPieGraph extends PureComponent {
   render() {
     const { approvalRating } = this.props;
     return (
-      <PieChart width={400} height={500}>
+      <PieChart width={300} height={200}>
         <Pie
           dataKey="value"
           startAngle={180}

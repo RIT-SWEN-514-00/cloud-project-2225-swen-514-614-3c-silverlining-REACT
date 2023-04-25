@@ -37,17 +37,29 @@ class SearchCard extends Component{
     
     render(){
         return(
-            <div style={CardContainerStyle}>
+            <div className='card justify-content-lg-center text-center'>
+                <div className='row'>
+                <div className='col text-end pt-2 me-2'>
                 { this.props.addPinnedSearchCallback ? 
-                <button onClick={() => {this.handlePinSearch(this.props.search)}}>Pin Search</button>
+                <button type="button" className="btn btn-primary btn-sm" onClick={() => {this.handlePinSearch(this.props.search)}}><i class="bi bi-pin-angle-fill pe-1"></i>Pin</button>
                 : <div/>}
-                <div>{"\"" + this.props.search.keyword + "\""}</div>
+                </div>
+                </div>
+                <div className='row'>
+                <div className='co pt-2'>
+                    <div>{"\"" + this.props.search.keyword + "\""}</div>
+                </div>
+               
+                </div>
+                
+                
                 <div>{"r/" + this.props.search.subreddit}</div>
                 <div>
                     <ApprovalPieGraph approval_rating={this.props.search.approval_rating}/>
                 </div>
-                <div>{"Approval Rating: " + this.props.search.approval_rating}</div>
-                <button onClick={this.handleNavigateToDashboard}>Show More</button>
+                <div className='mt-2'>{"Approval Rating: " + this.props.search.approval_rating.toFixed(2)}%</div>
+                <button type="button" className="btn btn-dark m-2" onClick={this.handleNavigateToDashboard}>Show More</button>
+                
             </div>
         )
     }
@@ -61,21 +73,3 @@ function SearchCardWithNavigation(props) {
 }
 
 export default SearchCardWithNavigation;
-
-const CardContainerStyle = {
-    border: '2px solid black',
-    borderRadius: '10px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignContent: 'center',
-    margin: '30px'
-}
-
-const KeyWordStyle = {
-    display: 'block'
-}
-
-const SubredditStyle = {
-    display: 'block'
-}
